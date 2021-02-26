@@ -59,8 +59,8 @@ export class App extends React.Component {
   handleCheckBoxChange(i, event) {
       const checked = event.target.checked;
       if (checked) {
-          const task = document.getElementById("task" + i).value;
-          this.moveToTasksDone(task);
+        const task = document.getElementById("task" + i).value;
+        this.moveToTasksDone(task);
       }
       if (this.state.toDoTasks.length === 0) {
         this.addToDoTask();
@@ -73,7 +73,7 @@ export class App extends React.Component {
       const context = this;
       return this.state.toDoTasks.map((taskRow, i) => {
           return (
-              <li class="row" key={"row" + i}>
+              <li className="row" key={"row" + i}>
                   <input  type="checkbox" 
                           name={"checkbox" + i} 
                           id={"checkbox" + i}
@@ -84,27 +84,36 @@ export class App extends React.Component {
                           id={"task" + i}
                           onChange={context.handleChange.bind(context, i)}
                           onKeyUp={context.handleEnter.bind(context)}
-                          value={taskRow}
-                          placeholder="task"                                       
+                          value={taskRow}    
+                          autocomplete="off"  
+                          maxlength="30"                                 
                   ></input>
               </li>
           )
       }) 
   } 
 
+  // show active cursor when the page is rendered
+  componentDidMount() {
+    document.getElementById("task0").focus();
+  }
+
   render() {
     return (
-      <div>
+      <div className="container">
+        <div className="list-container">
         <h1>To Do List</h1>
 
         <ul>
           {this.renderRows()}         
         </ul>
+      </div>
 
-        <h1>Things Done</h1>
-        <TasksDone tasksDone={this.state.tasksDone}                
-        />
-
+        <div className="list-container">
+          <h1>Things Done</h1>
+          <TasksDone tasksDone={this.state.tasksDone}                
+          />
+        </div>
       </div>
     )
   }
