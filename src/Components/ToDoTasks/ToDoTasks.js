@@ -1,12 +1,26 @@
 import React from "react";
 import "./ToDoTasks.css";
 
-export class ToDoTasks extends React.Component {
 
+let t;
+
+export class ToDoTasks extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {toDoTasks: this.props.toDoTasks}
+    }
     handleEnter(event) {
         if (event.keyCode === 13) {
-        this.props.addToDoTask(event.target.value); 
-        }   
+            this.props.addToDoTask(event.target.value); 
+            clearTimeout(t);
+        } 
+    }
+
+    handleChange(event) {
+        if (setTimeout) {
+            clearTimeout(t);
+        }
+            t = setTimeout(() => this.props.addToDoTask(event.target.value), 1500 );  
     }
 
     handleCheckBoxChange(event) {
@@ -19,24 +33,29 @@ export class ToDoTasks extends React.Component {
     }
 
     renderRows() {
-        return this.props.toDoTasks.map( (taskRow, i) => {
+        const context = this;
+        return this.state.toDoTasks.map((taskRow, i) => {
             return (
                 <li class="row" key={"row" + i}>
                     <input  type="checkbox" 
                             name={i} 
-                            onChange={this.handleCheckBoxChange.bind(this)}
-                            
- 
+                            onChange={context.handleCheckBoxChange.bind(context)}
+                        
                     ></input> 
                     <input  type="text"
-                            onKeyUp={this.handleEnter.bind(this)}
                             id={"task" + i}
+                            onChange={context.handleChange.bind(context)}
+                            onKeyUp={context.handleEnter.bind(context)}
+                            value={taskRow}
                             
+                            // placeholder="task"
+                                            
                     ></input>
                 </li>
             )
-        })
-    }
+        }) 
+    } 
+
 
     render() {
         return (
