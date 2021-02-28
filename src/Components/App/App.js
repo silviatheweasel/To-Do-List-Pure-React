@@ -34,7 +34,7 @@ export class App extends React.Component {
         toDoTasks: this.state.toDoTasks  
       },this.handleCursor); 
     } 
-    if (event.key === "Delete" || event.key === "Backspace" && this.state.toDoTasks.length >=2 && i === this.state.toDoTasks.length - 1 && event.target.value === "") {     
+    if ((event.key === "Delete" || event.key === "Backspace") && this.state.toDoTasks.length >=2 && i === this.state.toDoTasks.length - 1 && event.target.value === "") {     
       this.state.toDoTasks.splice(i, 1);
       this.setState({toDoTasks: this.state.toDoTasks}, document.getElementById("task" + (i-1)).focus());
     }
@@ -101,8 +101,8 @@ export class App extends React.Component {
                           onChange={context.handleChange.bind(context, i)}
                           onKeyUp={context.handleEnterAndDelete.bind(context, i)}
                           value={taskRow}    
-                          autocomplete="off"  
-                          maxlength="30"                                 
+                          autoComplete="off"  
+                          maxLength="30"                                 
                   ></input>
               </li>
           )
