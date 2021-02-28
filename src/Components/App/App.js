@@ -25,21 +25,37 @@ export class App extends React.Component {
     document.getElementById("task" + index).focus();
   }
 
-  //when the user presses Enter, an empty string is pushed into the toDoTasks array in the state, and the cursor is then moved
-  handleEnter(event) {
-    if (event.keyCode === 13) {
+  //when the user presses Enter, an empty string is pushed into the toDoTasks array in the state, and the cursor is then moved;
+  //when the user presses Delete or Backspace when the row only consists of an empty string, the empty string is removed
+  handleEnterAndDelete(i, event) {
+    if (event.keyCode === 13 && !this.state.toDoTasks.includes("")) {
       this.state.toDoTasks.push("");
       this.setState({
-        toDoTasks: this.state.toDoTasks,  
+        toDoTasks: this.state.toDoTasks  
       },this.handleCursor); 
     } 
+    if (event.key === "Delete" || event.key === "Backspace" && this.state.toDoTasks.length >=2 && i === this.state.toDoTasks.length - 1 && event.target.value === "") {     
+      this.state.toDoTasks.splice(i, 1);
+      this.setState({toDoTasks: this.state.toDoTasks}, document.getElementById("task" + (i-1)).focus());
+    }
   }
 
-  //when the text input is changed, the element in the toDoTasks array in the state is replaced
+  //when the text input is changed and the first letter is not space, the element in the toDoTasks array in the state is replaced; 
+  //if the input value is an empty string and it is not the only element in the array, it will be removed from the array
   handleChange(i, event) {
     const task = event.target.value;
-    this.state.toDoTasks.splice(i, 1, task);
-    this.setState({toDoTasks: this.state.toDoTasks});
+    if (task[0] !== " ") {
+      this.state.toDoTasks.splice(i, 1, task);
+      this.setState({toDoTasks: this.state.toDoTasks});
+    }
+    if (task === "" && this.state.toDoTasks.length > 1) {
+      this.state.toDoTasks.splice(i, 1); 
+      if (i >=1) {
+        this.setState({toDoTasks: this.state.toDoTasks}, document.getElementById("task" + (i-1)).focus());
+      } else if (i === 0) {
+        this.setState({toDoTasks: this.state.toDoTasks}, document.getElementById("task0").focus());
+      }
+    }
   }
 
   //if the string is not empty, it is pushed into the tasksDone array in the state and removed from the toDoTasks array in the state
@@ -83,7 +99,7 @@ export class App extends React.Component {
                   <input  type="text"
                           id={"task" + i}
                           onChange={context.handleChange.bind(context, i)}
-                          onKeyUp={context.handleEnter.bind(context)}
+                          onKeyUp={context.handleEnterAndDelete.bind(context, i)}
                           value={taskRow}    
                           autocomplete="off"  
                           maxlength="30"                                 
