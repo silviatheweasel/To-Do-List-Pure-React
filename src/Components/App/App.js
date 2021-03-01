@@ -71,6 +71,16 @@ export class App extends React.Component {
    }
   }
 
+  //move the task from the tasks done list back to the to do list 
+  moveTaskBack(task) {
+    const index = this.state.tasksDone.indexOf(task);
+    this.state.tasksDone.splice(index, 1);
+    this.state.toDoTasks.unshift(task);
+    this.setState({toDoTasks: this.state.toDoTasks,
+                   tasksDone: this.state.tasksDone
+                  })
+  }
+
   //when a checkbox is checked, the moveToTasksDone method is called, and the checkbox becomes unchecked; if all there's no checkbox left, a new empty string is pushed into he toDoTasks array in the state
   handleCheckBoxChange(i, event) {
       const checked = event.target.checked;
@@ -82,6 +92,12 @@ export class App extends React.Component {
         this.addToDoTask();
       }
       document.getElementById("checkbox" + i).checked = !document.getElementById("checkbox" + i).checked;
+  }
+
+  deleteTask(task) {
+    const index = this.state.tasksDone.indexOf(task);
+    this.state.tasksDone.splice(index, 1);
+    this.setState({tasksDone: this.state.tasksDone});
   }
 
   //each element of the toDoTasks array in the sate is mapped into a row with two input fields - a check box and a text input
@@ -127,7 +143,9 @@ export class App extends React.Component {
 
         <div className="list-container">
           <h1>Things Done</h1>
-          <TasksDone tasksDone={this.state.tasksDone}                
+          <TasksDone tasksDone={this.state.tasksDone}
+                     moveTaskBack={this.moveTaskBack.bind(this)}
+                     deleteTask={this.deleteTask.bind(this)}                
           />
         </div>
       </div>

@@ -60,14 +60,31 @@ input[type=text]:focus {
   outline: none;
 }
 
-i {
-  margin-right: 5px;
+input[type=checkbox] {
+  cursor: pointer;
+  float: left;
+  margin-top: 5px;
+}
+
+span {
+  display: inline-block;
+  margin-left: 10px;
+  width: 80%;
 }
 
 .done {
   background-color: #7b84c4;
   word-wrap: break-word;
   word-break: break-all;
+}
+
+.deleteBtn {
+  float: right;
+  color: white;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
 }
 
 @media screen and (max-width: 1100px) {
@@ -78,6 +95,9 @@ i {
   }
   .container {
     justify-content: center;
+  }
+  span {
+    width: 80%;
   }
 } 
 
