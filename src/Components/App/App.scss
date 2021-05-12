@@ -1,0 +1,162 @@
+$blue: #0F5B94;
+$red: #dd4230;
+$grey: rgb(168, 167, 167);
+
+%text {
+    margin-left: 20px;
+    font-size: 16px;
+    padding: 5px 0;   
+    font-family: 'Lexend Deca', sans-serif;
+}
+
+%checkbox {
+    -webkit-appearance: none;
+    border: 1px solid $blue;
+    padding: 7px;
+    border-radius: 2px;
+    display: inline-block;
+    position: relative;
+    &:active {
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+    }
+    &:checked {
+        border: 1px solid $blue;
+        color: $blue;
+        &:active {
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+        }
+        &:after {
+            font-family: "Font Awesome 5 Free"; 
+            font-weight: 600; 
+            color: $blue;
+            content: "\f00c";
+            font-size: 14px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    }
+    &.checked {
+        @extend :checked;
+    }              
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    // border: 1px solid red;
+}
+
+html {
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: $grey;
+    body {
+        .container {
+            height: 100vh;
+            width: 100%;
+            overflow: auto;
+            background: url("./backgroundimg.jpg") no-repeat fixed center;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .list-container {
+                height: 90vh;
+                width: 45vh;
+                background-color: white;
+                margin: 0 50px;
+                h1 {
+                    margin: 30% 0 0 70px;
+                    font-family: 'Noto Sans', sans-serif;
+                    font-size: 28px;
+                    color:black;
+                }
+                .number-of-tasks {
+                    font-size: 13px;
+                    font-weight: 300;
+                    margin-left: 70px;
+                    margin-bottom: 25px;
+                    padding: 3px 0 20px 0;
+                    border-bottom: 2px solid rgb(230, 228, 228);
+                    color: $grey;
+                    font-family: 'Lexend Deca', sans-serif;
+                }
+                .inner-container {
+                    overflow: scroll;
+                    height: 65%;
+                    ul {
+                        margin: 0;
+                        padding: 0;
+                        li {
+                            list-style-type: none;
+                            padding: 14px 0;
+                            margin-left: 30px;
+                            display: flex;
+                            position: relative;
+                            align-items: center;
+                            .checkbox {
+                                @extend %checkbox;            
+                            }
+                            span {
+                                @extend %text;
+                            }
+                            .text-input {
+                                @extend %text;
+                                border: none;
+                                outline: none;
+                                width: 100%;
+                            }
+                            .deleteBtn {
+                                position: absolute;
+                                right: 20px;
+                                cursor: pointer;
+                                outline: none;
+                                border: none;
+                                -webkit-tap-highlight-color: transparent;
+                                i {
+                                    padding: 10px;
+                                    font-size: 7px;
+                                    display: inline-block;
+                                    border-radius: 4px;
+                                    background-color: #DD4230;
+                                    color: white;
+                                }
+                            }
+                            
+                        }
+                    }
+
+                }
+            }
+
+        }
+    }
+}
+
+@media only screen and (max-width: 1100px) {
+    .container {
+        padding: 20px;
+        .list-container {
+            height: 70vh !important;
+            width: 50% !important;
+            margin: 0 20px !important;
+        }
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    .container {
+        flex-direction: column;
+        justify-content: flex-start !important;
+        padding-top: 30px;
+        .list-container {
+            height: auto !important;
+            width: 80% !important;
+            margin: 20px 0 !important;
+            padding-bottom: 30px;
+        }
+    }
+}

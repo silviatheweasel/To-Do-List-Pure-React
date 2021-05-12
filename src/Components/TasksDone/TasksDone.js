@@ -1,5 +1,4 @@
 import React from "react";
-import "./TasksDone.css";
 
 export class TasksDone extends React.Component {
     handleCheckbox(i, event) {
@@ -24,6 +23,7 @@ export class TasksDone extends React.Component {
                         key= {"taskDoneRow" + i}
                         ><input type="checkbox"
                                 id={"checkboxDone" + i}
+                                className="checkbox"
                                 onChange={context.handleCheckbox.bind(context, i)}
                                 checked
                                 >
@@ -31,15 +31,16 @@ export class TasksDone extends React.Component {
                         <span id={"taskDone" + i}>{task}</span>
                         <button onClick={context.handleClick.bind(context)}
                                 className="deleteBtn">
-                            <i class="fas fa-minus"></i>
+                            <i className="fas fa-minus"></i>
                         </button>
                      </li>)
         })
     }
     render() {
-        return (<ul>
+        return (<div className="inner-container">
+                    <ul>
                     {this.renderRows()}
-                </ul>)
+                </ul>
+        </div>)
     } 
-
 }

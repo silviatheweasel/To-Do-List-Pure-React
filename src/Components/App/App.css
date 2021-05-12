@@ -1,117 +1,175 @@
-.App {
-  text-align: center;
+html body .container .list-container .inner-container ul li span, html body .container .list-container .inner-container ul li .text-input {
+  margin-left: 20px;
+  font-size: 16px;
+  padding: 5px 0;
+  font-family: 'Lexend Deca', sans-serif;
+}
+
+html body .container .list-container .inner-container ul li .checkbox {
+  -webkit-appearance: none;
+  border: 1px solid #0F5B94;
+  padding: 7px;
+  border-radius: 2px;
+  display: inline-block;
+  position: relative;
+}
+
+html body .container .list-container .inner-container ul li .checkbox:active {
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px 1px 3px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+html body .container .list-container .inner-container ul li .checked.checkbox, html body .container .list-container .inner-container ul li .checkbox:checked {
+  border: 1px solid #0F5B94;
+  color: #0F5B94;
+}
+
+html body .container .list-container .inner-container ul li .checked.checkbox:active, html body .container .list-container .inner-container ul li .checkbox:checked:active {
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px 1px 3px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+html body .container .list-container .inner-container ul li .checked.checkbox:after, html body .container .list-container .inner-container ul li .checkbox:checked:after {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 600;
+  color: #0F5B94;
+  content: "\f00c";
+  font-size: 14px;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 * {
   padding: 0;
   margin: 0;
-  /* border: 1px solid blue; */
-  box-sizing: border-box;
-
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
-.container {
-  background-color: #2b2d42;
+html {
+  height: 100%;
   width: 100%;
-  min-height: 100vh;
+  overflow: auto;
+  background-color: #a8a7a7;
+}
+
+html body .container {
+  height: 100vh;
+  width: 100%;
+  overflow: auto;
+  background: url("./backgroundimg.jpg") no-repeat fixed center;
+  background-size: cover;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-h1 {
-  color: #2b2d42;
-  text-align: center;
-  margin: 20px 0;
+html body .container .list-container {
+  height: 90vh;
+  width: 45vh;
+  background-color: white;
+  margin: 0 50px;
 }
 
-.list-container {
-  background-color: #edf2f4;
-  width: 35%;
-  min-height: 300px;
-  border-radius: 10px;
-  margin: 100px 0;
+html body .container .list-container h1 {
+  margin: 30% 0 0 70px;
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 28px;
+  color: black;
 }
 
-ul {
-  padding: 10px 30px 30px 30px;
+html body .container .list-container .number-of-tasks {
+  font-size: 13px;
+  font-weight: 300;
+  margin-left: 70px;
+  margin-bottom: 25px;
+  padding: 3px 0 20px 0;
+  border-bottom: 2px solid #e6e4e4;
+  color: #a8a7a7;
+  font-family: 'Lexend Deca', sans-serif;
 }
 
-.row {
+html body .container .list-container .inner-container {
+  overflow: scroll;
+  height: 65%;
+}
+
+html body .container .list-container .inner-container ul {
+  margin: 0;
+  padding: 0;
+}
+
+html body .container .list-container .inner-container ul li {
   list-style-type: none;
-  margin: 5px;
-  padding: 15px;
-  font-size: 18px;
-  background-color: #ee6c4d;
-  color: #edf2f4;
-  
+  padding: 14px 0;
+  margin-left: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-input[type=text] {
+html body .container .list-container .inner-container ul li .text-input {
   border: none;
-  background-color: #ee6c4d;
-  font-size: 18px;
-  margin-left: 10px;
-  color: #edf2f4;
-  width: 90%;
-}
-
-input[type=text]:focus {
   outline: none;
+  width: 100%;
 }
 
-input[type=checkbox] {
+html body .container .list-container .inner-container ul li .deleteBtn {
+  position: absolute;
+  right: 20px;
   cursor: pointer;
-  float: left;
-  margin-top: 5px;
-}
-
-span {
-  display: inline-block;
-  margin-left: 10px;
-  width: 80%;
-}
-
-.done {
-  background-color: #7b84c4;
-  word-wrap: break-word;
-  word-break: break-all;
-}
-
-.deleteBtn {
-  float: right;
-  color: white;
-  background-color: transparent;
+  outline: none;
   border: none;
-  cursor: pointer;
-  font-size: 20px;
+  -webkit-tap-highlight-color: transparent;
 }
 
-@media screen and (max-width: 1100px) {
-  .list-container {
-    width: 40%;
-    margin-left: 30px;
-    margin-right: 30px;
-  }
-  .container {
-    justify-content: center;
-  }
-  span {
-    width: 80%;
-  }
-} 
+html body .container .list-container .inner-container ul li .deleteBtn i {
+  padding: 10px;
+  font-size: 7px;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #DD4230;
+  color: white;
+}
 
-@media screen and (max-width: 820px) {
-  .list-container {
-    width: 80%;
-    margin: 30px 0;
-  }
+@media only screen and (max-width: 1100px) {
   .container {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    padding: 20px;
   }
-  input[type=text] {
-    width: 80%;
+  .container .list-container {
+    height: 70vh !important;
+    width: 50% !important;
+    margin: 0 20px !important;
   }
 }
+
+@media only screen and (max-width: 650px) {
+  .container {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: start !important;
+        -ms-flex-pack: start !important;
+            justify-content: flex-start !important;
+    padding-top: 30px;
+  }
+  .container .list-container {
+    height: auto !important;
+    width: 80% !important;
+    margin: 20px 0 !important;
+    padding-bottom: 30px;
+  }
+}
+/*# sourceMappingURL=App.css.map */

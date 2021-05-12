@@ -11,6 +11,35 @@ export class App extends React.Component {
     }
   }
 
+ getNumberOfTasks(taskArray) {
+   if (taskArray.includes("")) {
+     return taskArray.length - 1;
+   } else {
+     return taskArray.length;
+   }
+ }
+
+ renderNumberOfTasks(taskArray) {
+   const numberOfToDo = this.getNumberOfTasks(this.state.toDoTasks);
+   const numberOfDone = this.getNumberOfTasks(this.state.tasksDone);
+   const totalNumber = numberOfToDo + numberOfDone;
+
+  if (taskArray === this.state.toDoTasks) {
+    if (totalNumber > 1) {
+         return (<p className="number-of-tasks">{numberOfToDo} of {totalNumber} tasks</p>)
+       } else {
+         return (<p className="number-of-tasks">{numberOfToDo} of {totalNumber} task</p>)
+       }
+  }
+  if (taskArray === this.state.tasksDone) {
+    if (totalNumber > 1) {
+         return (<p className="number-of-tasks">{numberOfDone} of {totalNumber} tasks</p>)
+       } else {
+         return (<p className="number-of-tasks">{numberOfDone} of {totalNumber} task</p>)
+       }
+  }
+ }
+
   //push a new empty string into the toDoTasks array in the state
   addToDoTask() {
     this.state.toDoTasks.push("");
@@ -84,12 +113,16 @@ export class App extends React.Component {
   //when a checkbox is checked, the moveToTasksDone method is called, and the checkbox becomes unchecked; if all there's no checkbox left, a new empty string is pushed into he toDoTasks array in the state
   handleCheckBoxChange(i, event) {
       const checked = event.target.checked;
-      if (checked) {
-        const task = document.getElementById("task" + i).value;
-        this.moveToTasksDone(task);
-      }
-      if (this.state.toDoTasks.length === 0) {
-        this.addToDoTask();
+      const task = document.getElementById("task" + i).value;
+      if (checked && task) {     
+        document.getElementById("checkbox" + i).classList.add("checked");
+        setTimeout(() => {
+          document.getElementById("checkbox" + i).classList.remove("checked");
+          this.moveToTasksDone(task);
+          if (this.state.toDoTasks.length < 1) {
+            this.addToDoTask();
+          }
+        }, 100);
       }
       document.getElementById("checkbox" + i).checked = !document.getElementById("checkbox" + i).checked;
   }
@@ -106,7 +139,8 @@ export class App extends React.Component {
       return this.state.toDoTasks.map((taskRow, i) => {
           return (
               <li className="row" key={"row" + i}>
-                  <input  type="checkbox" 
+                  <input  type="checkbox"
+                          className="checkbox" 
                           name={"checkbox" + i} 
                           id={"checkbox" + i}
                           onChange={context.handleCheckBoxChange.bind(context, i)}                        
@@ -114,6 +148,7 @@ export class App extends React.Component {
                   ></input> 
                   <input  type="text"
                           id={"task" + i}
+                          className="text-input"
                           onChange={context.handleChange.bind(context, i)}
                           onKeyUp={context.handleEnterAndDelete.bind(context, i)}
                           value={taskRow}    
@@ -134,15 +169,18 @@ export class App extends React.Component {
     return (
       <div className="container">
         <div className="list-container">
-        <h1>To Do List</h1>
-
-        <ul>
-          {this.renderRows()}         
-        </ul>
+        <h1>To-Do List</h1>
+        {this.renderNumberOfTasks(this.state.toDoTasks)}
+        <div className="inner-container">
+          <ul>
+            {this.renderRows()}         
+          </ul>
+        </div>
       </div>
 
         <div className="list-container">
-          <h1>Things Done</h1>
+          <h1>Tasks Done</h1>
+          {this.renderNumberOfTasks(this.state.tasksDone)}
           <TasksDone tasksDone={this.state.tasksDone}
                      moveTaskBack={this.moveTaskBack.bind(this)}
                      deleteTask={this.deleteTask.bind(this)}                
